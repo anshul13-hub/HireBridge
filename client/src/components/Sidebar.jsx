@@ -1,13 +1,21 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import NotificationBell from "./NotificationBell";
 
 function Sidebar({ role = "student" }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    closeMobileMenu();
     navigate("/");
   };
 
@@ -38,57 +46,102 @@ function Sidebar({ role = "student" }) {
       : studentLinks;
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-brand">
-        <div className="brand-icon">H</div>
-
-        <div>
-          <h2>HireBridge</h2>
-          <p>Placement Portal</p>
+    <>
+      {/* Mobile top bar */}
+      <div className="mobile-topbar">
+        <div className="mobile-brand">
+          <div className="brand-icon">H</div>
+          <span>HireBridge</span>
         </div>
 
-        {role === "student" && <NotificationBell />}
+        <div className="mobile-topbar-actions">
+          {role === "student" && <NotificationBell />}
+
+          <button
+            type="button"
+            className="mobile-menu-btn"
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Open navigation menu"
+          >
+            ☰
+          </button>
+        </div>
       </div>
 
-      <nav className="sidebar-nav">
-        <p className="sidebar-label">MENU</p>
+      {/* Dark overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="mobile-sidebar-overlay"
+          onClick={closeMobileMenu}
+        />
+      )}
 
-        {links.map((link) => (
-          <NavLink
-            key={link.path}
-            to={link.path}
-            end={
-              link.path === "/student" ||
-              link.path === "/recruiter" ||
-              link.path === "/admin"
-            }
-            className={({ isActive }) =>
-              `sidebar-link ${isActive ? "sidebar-link-active" : ""}`
-            }
-          >
-            <span className="sidebar-link-icon">{link.icon}</span>
-            <span>{link.name}</span>
-          </NavLink>
-        ))}
-      </nav>
-
-      <div className="sidebar-bottom">
-        <div className="sidebar-user">
-          <div className="user-avatar">
-            {user?.name?.charAt(0)?.toUpperCase() || "S"}
-          </div>
+      <aside
+        className={`sidebar ${
+          isMobileMenuOpen ? "sidebar-mobile-open" : ""
+        }`}
+      >
+        <div className="sidebar-brand">
+          <div className="brand-icon">H</div>
 
           <div>
-            <h4>{user?.name || "Student"}</h4>
-            <p>{role.charAt(0).toUpperCase() + role.slice(1)}</p>
+            <h2>HireBridge</h2>
+            <p>Placement Portal</p>
           </div>
+
+          <button
+            type="button"
+            className="mobile-sidebar-close"
+            onClick={closeMobileMenu}
+            aria-label="Close navigation menu"
+          >
+            ×
+          </button>
+
+          {role === "student" && <NotificationBell />}
         </div>
 
-        <button className="sidebar-logout" onClick={logout}>
-          ↪ Logout
-        </button>
-      </div>
-    </aside>
+        <nav className="sidebar-nav">
+          <p className="sidebar-label">MENU</p>
+
+          {links.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              onClick={closeMobileMenu}
+              end={
+                link.path === "/student" ||
+                link.path === "/recruiter" ||
+                link.path === "/admin"
+              }
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "sidebar-link-active" : ""}`
+              }
+            >
+              <span className="sidebar-link-icon">{link.icon}</span>
+              <span>{link.name}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="sidebar-bottom">
+          <div className="sidebar-user">
+            <div className="user-avatar">
+              {user?.name?.charAt(0)?.toUpperCase() || "S"}
+            </div>
+
+            <div>
+              <h4>{user?.name || "Student"}</h4>
+              <p>{role.charAt(0).toUpperCase() + role.slice(1)}</p>
+            </div>
+          </div>
+
+          <button className="sidebar-logout" onClick={logout}>
+            ↪ Logout
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
 

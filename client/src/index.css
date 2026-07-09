@@ -5070,3 +5070,126 @@ body::-webkit-scrollbar {
   font-size: 14px;
   border-top: 1px solid #dbe4f0;
 }
+/* Mobile navigation */
+.mobile-topbar,
+.mobile-sidebar-overlay,
+.mobile-sidebar-close {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+    padding: 10px 16px;
+    background: #0f172a;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-brand,
+  .mobile-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mobile-brand {
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  .mobile-brand .brand-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 21px;
+  }
+
+  .mobile-menu-btn {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 10px;
+    background: #1e293b;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .mobile-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: block;
+    background: rgba(15, 23, 42, 0.58);
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1300;
+    width: min(290px, 82vw);
+    min-height: 100vh;
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+    box-shadow: 12px 0 30px rgba(15, 23, 42, 0.25);
+  }
+
+  .sidebar.sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  .mobile-sidebar-close {
+    display: block;
+    margin-left: auto;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 8px;
+    background: #1e293b;
+    color: white;
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .sidebar-brand > .notification-bell,
+  .sidebar-brand .notification-wrapper {
+    display: none;
+  }
+
+  .main-layout-content {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+  }
+
+  .dashboard-page {
+    padding: 20px 16px 32px;
+  }
+
+  .dashboard-topbar,
+  .dashboard-header {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .dashboard-content h1,
+  .dashboard-content h2 {
+    line-height: 1.18;
+  }
+
+  .stats-grid,
+  .jobs-grid,
+  .applications-grid,
+  .admin-users-grid {
+    grid-template-columns: 1fr;
+  }
+}
