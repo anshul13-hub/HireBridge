@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api`,
 });
 
 api.interceptors.request.use((config) => {
@@ -34,7 +34,6 @@ api.interceptors.response.use(
     if (isInactiveUser || isInvalidToken) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-
       window.location.href = "/login";
     }
 
