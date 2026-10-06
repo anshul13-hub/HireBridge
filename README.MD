@@ -6,6 +6,16 @@ HireBridge is a full-stack, role-based campus placement portal designed to strea
 
 Recruiter posts a job → Admin reviews and approves the job → Eligible student applies → Recruiter reviews applicants and updates recruitment rounds → Student tracks application status and receives notifications.
 
+## Project Highlights
+
+* **Role-Based Access:** Separate workflows and permissions for Students, Recruiters, and Administrators.
+* **Automated Eligibility Checking:** Validates CGPA, branch, required skills, and application deadline before allowing a student to apply.
+* **Complete Recruitment Workflow:** Supports job posting, admin approval, applications, recruitment rounds, interview scheduling, and final status tracking.
+* **Resume Management:** Students can upload PDF resumes that recruiters can view while reviewing applications.
+* **Application Tracking:** Students can track their recruitment progress from application to final result.
+* **Secure Backend:** Uses JWT authentication, bcryptjs password hashing, protected routes, and role-based authorization.
+* **Responsive Interface:** Provides a responsive experience across desktop and mobile devices.
+
 ## Features
 
 ### Student Portal
@@ -182,5 +192,7 @@ http://localhost:5000
 ## Author
 
 Anshul
+
 B.Tech CSE Student
+
 Full-Stack MERN Developer
